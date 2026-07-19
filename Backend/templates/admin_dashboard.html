@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>🛠 Administrator Dashboard</h1>
+
+<p>
+Monitor platform activity, review submitted resources, and manage the academic
+resource library through the administrator control panel.
+</p>
+
+<h2>Platform Statistics</h2>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <h3>{{ stats[0] }}</h3>
+
+        <p>Total Resources</p>
+
+    </div>
+
+    <div class="stat-card pending">
+
+        <h3>{{ stats[1] }}</h3>
+
+        <p>Pending Review</p>
+
+    </div>
+
+    <div class="stat-card approved">
+
+        <h3>{{ stats[2] }}</h3>
+
+        <p>Approved</p>
+
+    </div>
+
+    <div class="stat-card rejected">
+
+        <h3>{{ stats[3] }}</h3>
+
+        <p>Rejected</p>
+
+    </div>
+
+</div>
+
+<div style="margin-top:35px; text-align:center;">
+
+<a class="btn" href="{{ url_for('manage_resources') }}">
+
+Manage Resources
+
+</a>
+
+</div>
+
+{% endblock %}

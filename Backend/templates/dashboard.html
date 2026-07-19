@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>My Dashboard</h1>
+
+<p>
+Manage all the academic resources you have uploaded. You can monitor their
+approval status, edit resource information, or remove pending and rejected
+submissions.
+</p>
+
+<a class="btn" href="{{ url_for('add_resources') }}">
+    + Upload New Resource
+</a>
+
+<h2>My Resources</h2>
+
+<table>
+
+<tr>
+
+<th>Title</th>
+
+<th>Subject</th>
+
+<th>Type</th>
+
+<th>Status</th>
+
+<th>Upload Date</th>
+
+<th>Actions</th>
+
+</tr>
+
+{% if resources %}
+
+{% for resource in resources %}
+
+<tr>
+
+<td>{{ resource[1] }}</td>
+
+<td>{{ resource[2] }}</td>
+
+<td>{{ resource[3] }}</td>
+
+<td>
+
+{% if resource[4] == "Pending" %}
+
+🟡 Pending
+
+{% elif resource[4] == "Approved" %}
+
+🟢 Approved
+
+{% else %}
+
+🔴 Rejected
+
+{% endif %}
+
+</td>
+
+<td>{{ resource[5] }}</td>
+
+<td>
+
+<a class="action-btn edit"
+href="{{ url_for('edit_resource', resource_id=resource[0]) }}">
+
+Edit
+
+</a>
+
+{% if resource[4] != "Approved" %}
+
+<a class="action-btn delete"
+href="{{ url_for('delete_resource_route', resource_id=resource[0]) }}"
+onclick="return confirm('Are you sure you want to delete this resource?')">
+
+Delete
+
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="6" style="text-align:center; padding:30px;">
+
+You haven't uploaded any resources yet.
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</table>
+
+{% endblock %}

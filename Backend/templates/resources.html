@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}
+Resources
+{% endblock %}
+
+{% block content %}
+
+<h2>Browse Resources</h2>
+
+<p>
+Use the filters below to quickly find study materials by subject,
+resource type, or upload date.
+</p>
+
+<hr>
+
+<h2>Resource Table:</h2>
+
+{% if "user_id" in session %}
+    <a class="btn" href="{{ url_for('add_resources') }}">Add New Resource</a>
+{% endif %}
+
+<div class="filter-card">
+
+<form method="GET">
+
+    <label>Subject</label>
+
+    <select name="subject">
+
+        <option value="">All Subjects</option>
+
+        {% for subject in subjects %}
+
+            <option
+                value="{{ subject[0] }}"
+                {% if selected_subject == subject[0]|string %}selected{% endif %}
+            >
+                {{ subject[1] }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <label>Type</label>
+
+    <select name="type">
+
+        <option value="">All Types</option>
+
+        {% for resource_type in resource_types %}
+
+            <option
+                value="{{ resource_type[0] }}"
+                {% if selected_type == resource_type[0]|string %}selected{% endif %}
+            >
+                {{ resource_type[1] }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <label>Sort By</label>
+
+    <select name="sort">
+
+    <option value="newest"
+        {% if selected_sort == "newest" %}selected{% endif %}>
+        Newest First
+    </option>
+
+    <option value="oldest"
+        {% if selected_sort == "oldest" %}selected{% endif %}>
+        Oldest First
+    </option>
+
+    <option value="title_asc"
+        {% if selected_sort == "title_asc" %}selected{% endif %}>
+        Title (A–Z)
+    </option>
+
+    <option value="title_desc"
+        {% if selected_sort == "title_desc" %}selected{% endif %}>
+        Title (Z–A)
+    </option>
+
+</select>
+
+    <button type="submit">
+        Apply Filter
+    </button>
+
+    <a class="btn" href="{{ url_for('resources') }}">
+    Reset
+</a>
+
+</form>
+
+</div>
+
+<br>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Type</th>
+        <th>Uploaded By</th>
+        <th>Download</th>
+        <th>Upload Date</th>
+    </tr>
+
+    {% if resources %}
+
+    {% for resource in resources %}
+
+    <tr>
+        <td>{{resource[1]}}</td>
+        <td>{{resource[2]}}</td>
+        <td>{{resource[3]}}</td>
+        <td>{{resource[4]}}</td>
+        <td><a class="action-btn edit"
+href="{{ resource[5] }}"
+target="_blank">
+
+Download
+
+</a></td>
+        <td>{{resource[6]}}</td>
+    </tr>
+
+    {% endfor %}
+
+    {% else %}
+
+<tr>
+    <td colspan="5" style="text-align:center;">
+        No approved resources.
+    </td>
+</tr>
+
+{% endif %}
+
+</table>
+
+
+{% endblock %}

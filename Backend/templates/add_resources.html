@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ "Edit Resource" if resource else "Add Resource" }}
+{% endblock %}
+
+{% block content %}
+
+<h1>
+
+{{ "Edit Resource" if resource else "Upload New Resource" }}
+
+</h1>
+
+<p>
+
+{% if resource %}
+
+Update the information below to modify your academic resource.
+Once updated, the resource will be submitted for administrator review again.
+
+{% else %}
+
+Complete the form below to submit your academic resource.
+All newly submitted resources require administrator approval before becoming
+publicly available.
+
+{% endif %}
+
+</p>
+
+<form
+action="{% if resource %}
+{{ url_for('edit_resource', resource_id=resource[0]) }}
+{% else %}
+{{ url_for('add_resources') }}
+{% endif %}"
+method="POST">
+
+    <label>Title</label>
+    <input
+    type="text"
+    name="title"
+    required
+    value="{{ resource[1] if resource else '' }}"><br><br>
+
+    <label>Description</label>
+
+<textarea
+    name="description"
+    rows="4">{{ resource[2] if resource else '' }}</textarea>
+
+    <label>File Link</label>
+    <input
+    type="text"
+    name="file_link"
+    required
+    value="{{ resource[3] if resource else '' }}"><br><br>
+
+    <label>Subject</label>
+    <select name="subject_id">
+
+        {% for subject in subjects %}
+
+<option
+    value="{{ subject[0] }}"
+
+    {% if resource and subject[0] == resource[4] %}
+        selected
+    {% endif %}
+    >
+
+    {{ subject[1] }}
+
+</option>
+
+{% endfor %}
+
+    </select>
+
+    <label>Resource Type</label>
+    <select name="type_id">
+
+        {% for resource_type in resource_types %}
+
+<option
+    value="{{ resource_type[0] }}"
+
+    {% if resource and resource_type[0] == resource[5] %}
+        selected
+    {% endif %}
+
+>
+
+{{ resource_type[1] }}
+
+</option>
+
+{% endfor %}
+
+    </select>
+
+   <button type="submit">
+
+{{ "Update Resource" if resource else "Submit Resource" }}
+
+    </button>
+
+</form>
+
+{% endblock %}

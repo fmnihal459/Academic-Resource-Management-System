@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Resources
+{% endblock %}
+
+{% block content %}
+
+<h1>Manage Resources</h1>
+
+<p>
+Approve pending uploads, review rejected resources,
+and permanently remove approved or rejected materials.
+</p>
+
+<!-- Pending -->
+
+<h2>Pending Resources ({{ pending|length }})</h2>
+
+<table>
+
+<tr>
+    <th>Title</th>
+    <th>Uploaded By</th>
+    <th>Subject</th>
+    <th>Submitted On</th>
+    <th>Actions</th>
+</tr>
+
+{% if pending %}
+
+{% for resource in pending %}
+
+<tr>
+
+<td>{{ resource[1] }}</td>
+<td>{{ resource[2] }}</td>
+<td>{{ resource[3] }}</td>
+<td>{{ resource[4] }}</td>
+
+<td>
+
+<a class="action-btn approve"
+href="{{ url_for('approve', resource_id=resource[0]) }}">
+Approve
+</a>
+
+<a class="action-btn reject"
+   href="{{ url_for('reject', resource_id=resource[0]) }}"
+   onclick="return confirm('Are you sure you want to reject this resource?');">
+
+    Reject
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td colspan="5" style="text-align:center;">
+        No pending resources.
+    </td>
+</tr>
+
+{% endif %}
+
+</table>
+
+<br><br>
+
+<!-- Approved -->
+
+<h2>Approved Resources ({{ approved|length }})</h2>
+
+<table>
+
+<tr>
+    <th>Title</th>
+    <th>Uploaded By</th>
+    <th>Subject</th>
+    <th>Approved On</th>
+    <th>Actions</th>
+</tr>
+
+{% if approved %}
+
+{% for resource in approved %}
+
+<tr>
+
+<td>{{ resource[1] }}</td>
+<td>{{ resource[2] }}</td>
+<td>{{ resource[3] }}</td>
+<td>{{ resource[4] }}</td>
+
+<td>
+
+<a class="action-btn reject"
+   href="{{ url_for('reject', resource_id=resource[0]) }}"
+   onclick="return confirm('Are you sure you want to reject this resource?');">
+
+    Reject
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td colspan="5" style="text-align:center;">
+        No approved resources.
+    </td>
+</tr>
+
+{% endif %}
+
+</table>
+
+<br><br>
+
+<!-- Rejected -->
+
+<h2>Rejected Resources ({{ rejected|length }})</h2>
+
+<table>
+
+<tr>
+    <th>Title</th>
+    <th>Uploaded By</th>
+    <th>Subject</th>
+    <th>Rejected On</th>
+    <th>Actions</th>
+</tr>
+
+{% if rejected %}
+
+{% for resource in rejected %}
+
+<tr>
+
+<td>{{ resource[1] }}</td>
+<td>{{ resource[2] }}</td>
+<td>{{ resource[3] }}</td>
+<td>{{ resource[4] }}</td>
+
+<td>
+
+<a class="action-btn delete"
+href="{{ url_for('delete_resource_route', resource_id=resource[0]) }}"
+ onclick="return confirm('Are you sure you want to delete this resource?');">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td colspan="5" style="text-align:center;">
+        No rejected resources.
+    </td>
+</tr>
+
+{% endif %}
+
+</table>
+
+{% endblock %}

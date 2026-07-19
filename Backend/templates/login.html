@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome Back</h1>
+
+<p>
+Sign in to access your account, manage your uploaded resources,
+and explore academic materials shared by the community.
+</p>
+
+{% if error %}
+
+<p class="error-message">
+    {{ error }}
+</p>
+
+{% endif %}
+
+<form action="{{ url_for('login') }}" method="POST">
+
+<label>Username</label>
+
+<input
+type="text"
+name="username"
+placeholder="Enter your username"
+required>
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+placeholder="Enter your password"
+required>
+
+<button type="submit">
+
+    Login
+
+</button>
+
+</form>
+
+<p style="text-align:center; margin-top:25px;">
+
+Don't have an account?
+
+<a href="{{ url_for('register') }}">
+
+<strong>Create one here.</strong>
+
+</a>
+
+</p>
+
+{% endblock %}

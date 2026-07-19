@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>Academic Resource Management System</h1>
+
+    <p>
+        A centralized platform where students can upload,
+        discover, and share academic resources in an
+        organized and secure environment.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a class="btn" href="{{ url_for('resources') }}">
+            Browse Resources
+        </a>
+
+        {% if "user_id" in session %}
+
+        <a class="btn" href="{{ url_for('add_resources') }}">
+            Upload Resource
+        </a>
+
+        {% else %}
+
+        <a class="btn" href="{{ url_for('login') }}">
+            Login to Upload
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<hr>
+<br>
+
+<h2>Why Use Our Platform?</h2>
+
+<p>
+Our platform simplifies academic resource sharing by providing
+a centralized place where students and educators can upload,
+discover, and manage learning materials efficiently.
+</p>
+
+<ul class="feature-list">
+
+<li>
+<strong>Resource Sharing</strong><br>
+Upload lecture notes, assignments, presentations, and study materials.
+</li>
+
+<li>
+<strong>Smart Discovery</strong><br>
+Browse resources using subjects, categories, and sorting options.
+</li>
+
+<li>
+<strong>Quality Assurance</strong><br>
+Every uploaded resource is reviewed by administrators before becoming publicly available.
+</li>
+
+<li>
+<strong>Student Friendly</strong><br>
+Designed to make learning materials easy to find and easy to contribute.
+</li>
+
+</ul>
+
+<br>
+
+<hr>
+
+<br>
+
+<h2>Explore Subjects</h2>
+
+<p>
+Browse learning materials from a wide range of university courses,
+organized to help you quickly find the resources you need.
+</p>
+
+<div class="tag-container">
+
+{% for subject in subjects %}
+
+<span class="tag">
+    {{ subject[1] }}
+</span>
+
+{% endfor %}
+
+</div>
+<br>
+
+<hr>
+
+<br>
+
+<h2>Available Resource Types</h2>
+
+<p>
+Access different kinds of academic materials including lecture notes,
+assignments, presentations, reports and more.
+</p>
+
+<div class="tag-container">
+
+{% for resource_type in resource_types %}
+
+<span class="tag">
+    {{ resource_type[1] }}
+</span>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
