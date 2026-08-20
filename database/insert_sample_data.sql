@@ -96,17 +96,20 @@ VALUES
 ('CSE471', 'Machine Learning'),
 ('CSE472', 'Machine Learning Lab');
 
+-- Passwords below are Werkzeug (scrypt) hashes of:
+-- admin -> admin123, fardin -> fardin123, rakib -> rakib123,
+-- nusrat -> nusrat123, sarah -> sarah123
 INSERT INTO users (username, email, password, role)
 VALUES
-('admin', 'admin@gmail.com', 'admin123', 'admin'),
+('admin', 'admin@gmail.com', 'scrypt:32768:8:1$83xpccZvkZcgg8bc$8863a112bf42dee9f7b3ab6173781d9768141b93bf739436405002840a8f1ad32fa505c876c48e1df10811998bffcc39941e256f4260df5f3330b3cdc0095405', 'admin'),
 
-('fardin', 'fardin@gmail.com', 'fardin123', 'user'),
+('fardin', 'fardin@gmail.com', 'scrypt:32768:8:1$K2DlcJPdubBZq4DJ$0b6b7622b723e4b56f31a60a00ca545afbdc4a98fbcb175ffd4ce8fd37d710bbaa1c6626582c624f9f62fc82e3e2a8eb3579ec6e8105518d513d32809761be89', 'user'),
 
-('rakib', 'rakib@hotmail.com', 'rakib123', 'user'),
+('rakib', 'rakib@hotmail.com', 'scrypt:32768:8:1$2b4jR0RE48KbzOho$2129549b29962bd09860eea032ed7f3533145e775db13607a38fcf6a64a00abba809b9323ed9f6e9f0273832924b46396b3bbd9964afd257efed105f0b8c6755', 'user'),
 
-('nusrat', 'nusrat@outlook.com', 'nusrat123', 'user'),
+('nusrat', 'nusrat@outlook.com', 'scrypt:32768:8:1$gLbLHCBkD4Uq4CkU$751abbac22c0e987e2c283783285b72f8bd4c4106b419d6af135129f097e12ff1dbcd9a5a6007980745a4377da07fbe33c3513572b55e80f81adb0bbb43317ae', 'user'),
 
-('sarah', 'sarah@yahoo.com', 'sarah123', 'user');
+('sarah', 'sarah@yahoo.com', 'scrypt:32768:8:1$VkkAtkSo8j3fcSKJ$016900d3afedea0fac9c3f29dbd016ef4abdc9a5f648a19300e5bead2d93f2135e262b42f49af7f490018d94304ed32046275ed756b62fd8c2362f1e0acf9f3e', 'user');
 
 INSERT INTO resource_types (type_name)
 VALUES
